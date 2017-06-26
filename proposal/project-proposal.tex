@@ -1,0 +1,81 @@
+\documentclass[twoside,a4paper]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{url}
+
+
+\begin{document}
+
+\title{A Neural Model for Software Vulnerability Prediction}
+\subtitle{Project Proposal} 
+\author{Maciek Makowski}
+\maketitle
+
+\begin{abstract}
+TODO
+\end{abstract}
+
+\section{Area of Study}
+
+* software vulnerabilities are widespread and affect millions of people, massive cost for economy (WannaCry etc.)
+* ways to address: code reviews, pen testing (require human intervention), formal methods, fuzzing\cite{neville2016towards}
+* metadata mining\cite{shin2011evaluating}
+* machine learning promises to replace humans\cite{scandariato2014predicting}
+* language modelling techniques could be used\cite{karpathy2015unreasonable}
+* representation learning: eliminates feature engineering, but requires lots of training data;
+to what extent can it be applied?
+* threats to validity: where to find negative examples?
+
+\section{Proposed Work}
+
+\subsection{Scope}
+
+* data sets + augmentation
+* choice of input representation
+* choice of the model (RNN/attention) -- focus on both quality and interpretability
+* implementation of the model
+* interpretability
+
+\subsection{Techniques}
+
+* unsupervised learning to improve accuracy (too little training data for the model to
+  work without that); Karpathy used ca. 500MB of C code
+* interpretability: visualisation of the relevant features
+
+\subsection{Outcomes}
+
+* quality: probably not state of the art
+* source code features that are predictors of 
+
+\section{Project Plan}
+
+* data collection
+* model implementation and experiments
+
+\section{Dissertation Structure}
+
+\begin{enumerate}
+\item Introduction
+\item Review of Prior Work
+\item Neural Models and Deep Learning
+    \begin{enumerate}
+    \item for natural language
+    \item for programming language
+    \end{enumerate}
+\item Input Representation
+    \begin{enumerate}
+    \item bag-of-tokens
+    \item character sequence
+    \item token sequence
+    \item abstract syntax tree
+    \end{enumerate}
+\item Model Selection
+\item Evaluation
+\item Conclusion and Future Work
+\end{enumerate}
+
+\bibliographystyle{alpha}
+\bibliography{project-proposal}
+
+\end{document}
