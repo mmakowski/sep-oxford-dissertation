@@ -1,99 +1,117 @@
-\documentclass[twoside,a4paper]{scrartcl}
+\documentclass[proposal]{softeng}
 
 \usepackage[utf8]{inputenc}
+\usepackage{times}
 \usepackage[normalem]{ulem}
 \usepackage{url}
-
 
 \begin{document}
 
 \title{A Neural Model for Software Vulnerability Prediction}
-\subtitle{Project Proposal} 
 \author{Maciek Makowski}
+\organisation{University of Oxford}
+\college{Kellogg College}
 \maketitle
 
 \begin{abstract}
-We propose to investigate techniques for prediction of vulnerabilities in
-software components that are based on neural network models that analyse
-source code. In particular, deep learnig techniques inspired by those used
-for natural language modelling and classification are going to be explored.
-The challenges we will need to overcome include training data curation,
+It is proposed that neural network based models for prediction of vulnerabilities in
+software components are investigated. In particular, deep learnig techniques 
+inspired by those used for natural language modelling and classification 
+would be explored.
+The challenges posed by the project include training data curation,
 choice of representation and choice of the neural network architecture.
-The contribution of the work would consist of a novel vulnerability model
-as well as insight into source code features that correlate with security
-vulnerabilities.
+The contribution of the work would comprise assessment of applicability of
+neural network models to security analysis of source code and, potentially, a novel
+vulnerability model.
 \end{abstract}
 
 \section{Area of Study}
 
 The social, political and financial impact of software security vulnerabilities, 
 exemplified by recent \emph{WannaCry} malware infection that affected
-United Kingdom National Health Service, calls 
+UK National Health Service, calls 
 for tools and techniques that aid in early discovery of such vulnerabilities. 
 The spectrum of existing approaches includes techniques based on human assessment,
 such as code reviews and penetration testing, as well as automated tools that perform
 either dynamic or static code analysis. The focus of our work will be on the last 
 group of techniques, and specifically on the application of machine learning in the
-domain. While existing pattern-matching tools are effective in discovering known
-vulnerability patterns in new software, the generalisation properties of machine 
-learning algorithms give hope that new types of vulnerabilities can be predicted
-based on source code features learned from existing examples. 
+domain.
 
 Prior work in the area involved machine learning models such as support vector
-machines (SVMs) \cite{neuhaus2007predicting,perl2015vccfinder}, naïve Bayes and 
-random forest
-\cite{scandariato2014predicting}, which require the input features to be hand-picked.
+machines (SVMs)~\cite{neuhaus2007predicting,perl2015vccfinder}, logistic regression 
+~\cite{hata2010fault}, naïve Bayes~\cite{hata2010fault,scandariato2014predicting} 
+and random forest~\cite{scandariato2014predicting}, which require the input features 
+to be hand-picked.
 Recent advances in \emph{representation learning}, in particular using deep
 neural networks (\emph{deep learnig}), might allow training vulnerability models 
 without the oversight of a software security expert. Exploratory work by Andrej 
-Karpathy \cite{karpathy2015unreasonable} suggests that recurrent neural networks 
+Karpathy~\cite{karpathy2015unreasonable} suggests that recurrent neural networks 
 (RNNs) have the capacity to learn syntactic properties of source code.
 This result holds promise for extending such models to classify security properties
 of the code. Neural networks have been applied to security analysis of software 
-design \cite{adebiyi2013security}, but, to the best of our knowledge, not to
-source code directly. This would be a new contribution of this project.
+design~\cite{adebiyi2013security}, but, to the best of our knowledge, not to
+source code directly. This would be a new contribution of the proposed project.
 
 The relative novelty of the deep learning models and scarcity of labelled
-examples are likely to pose a difficulty in achieving state-of-the-art accuracy of
-the predictions. Nonetheless, the work will explore the limitations of
-neural model applicability and the problem space where such models offer advantages
-over alternative code analysis approaches.
+examples are likely to pose a difficulty in achieving state of the art accuracy of
+the predictions. As a result, the primary goal of the project would be exploration
+of the limitations of neural model applicability and the problem space where 
+such models offer advantages over alternative code analysis approaches.
 
 \section{Proposed Work}
 
 \subsection{Scope}
 
-\paragraph{Data sets} Data sets curated for prior research (\cite{li2016vulpecker}, 
-\cite{perl2015vccfinder}, \cite{meneely2013patch})
-will be reviewed. If required, a comprehensive data set will be constructed
-such set based on public databases of vulnerabilities in open-source software. 
+\paragraph{Review of approaches} We will present and discuss relative merits
+of existing techniques for software vulnerability detection and prediction. 
+Particular attention will be paid to vulnerability 
+prediction work that relies on machine learning. We will explain how
+the use of representation learning can address the shortcomings of existing
+methods, and the classification algorithms developed in natural language
+processing (NLP) domain that might be applicable to source code analysis and
+classification.
+
+\paragraph{Data sets} Machine learning techniques rely on the availability of
+training data sets. In particular, for supervised training of classifiers,
+labelled data is required. The data sets curated for prior research 
+(\cite{li2016vulpecker}, \cite{perl2015vccfinder}, \cite{meneely2013patch})
+will be reviewed for their applicability to training neural network models. 
+If required, a new data set will be constructed based on public databases of 
+vulnerabilities in open source software and public source code repositories.
 
 \paragraph{Input representation} A range of possible representations of the source
 code that is taken as the input to the model is feasible: from sequences of 
 characters to abstract syntax trees. We will address the trade-offs between different
-representations.
+representations as far as accuracy of predictions and flexibility of the models
+is concerned.
 
-* choice of the model (RNN/attention) -- focus on both quality and interpretability
-* implementation of the model
-* interpretation of results
+\paragraph{Model evaluation} Selected algorithms will be implemented and
+evaluated on the test data set. The evaluation criteria will include 
+prediction accuracy, generalisation power and interpretability of the
+results. Supported by this data we will reevaluate the potential area
+of application for neural vulnerability models.
 
 \subsection{Techniques}
 
-\paragraph{Data set augmentation} Since it is expected that labelled examples will 
-be scarce, we will investigate techniques for data set augmentation, including 
-vulnerability-invariant source code transformations. 
-
-\paragraph{Pre-training} In the likely event that insufficient labelled training data is
-present, we will apply unsupervised pre-training techniques to improve the model accuracy.
-
-\paragraph{Recurrent neural network}
-
-* interpretability: attention visualisation of the relevant features
+The project will be focussed on static code analysis, with
+particular attention paid to classification approaches used
+in NLP that can be transferred to the domain of source code. We expect
+to employ a range of machine learning techniques: recurrent neural
+networks, attention, autoencoders, unsupervised pre-training and 
+adversarial training. We will research visualisation approaches to
+aid in interpretation of the results of the classifier.
 
 \subsection{Expected Outcomes}
 
-* quality: probably not state of the art
-* insight into source code features that are correlated with sec vulnerabilities
+The primary outcome of the project is expected to be an evaluation
+of the problem space where neural network approaches to modelling vulnerabilities
+is likely to be useful. We expect that the accuracy and predictive power
+of the model would not match state of the art in the general case. However,
+we expect that for certain classes of bugs the neural network approach
+will achieve promising results. We also anticipate that metrics other than
+classification quality -- for example, ease of adaptation to new programming 
+languages -- might render those models compelling.
+
 
 \subsection{Risks}
 
@@ -113,10 +131,12 @@ vulnerability-free.
 
 \section{Project Plan}
 
-The major milestones of the project and estimated effort involved are described below.
+The major milestones of the project and estimated elapsed time required to achieve
+each of them are listed below.
 
 \paragraph{Literature review} A survey of prior work in the field that would contribute
-to the content of \emph{Review of Prior Work} section. In addition, the review will 
+to the content of \emph{Review of vulnerability prediction approaches} section. 
+In addition, the review will 
 provide information on existing data sets, on evaluation approaches and on reference 
 results for comparison with our model. It is expected to take 5 weeks.
 
@@ -125,7 +145,7 @@ to use for training and evaluation can be identified. In this phase we will obta
 those data sets, and, should they prove insufficient, curate a new one that will be
 used for training the model. Approximate duration of this phase will be 8 weeks.
 
-\paragraph{Model implementation and training} The neural network model will be 
+\paragraph{Model implementation and training} The neural network models will be 
 designed, implemented and trained. The training and preliminary evaluation phase 
 is expected to be time-consuming, given that the RNN programming language model in 
 \cite{karpathy2015unreasonable} took a number of days
@@ -139,28 +159,22 @@ is expected to take 15 weeks.
 
 \section{Dissertation Structure}
 
-\begin{enumerate}
+\begin{enumerate}\raggedright
 \item Introduction
-\item Review of Prior Work
-\item Neural Models and Deep Learning
+\item Vulnerability Prediction and Machine Learning
     \begin{enumerate}
-    \item Natural Language
-    \item Programming Language
+    \item Context for vulnerability prediction
+    \item Review of vulnerability prediction approaches
+    \item Prior work on machine learning application to vulnerability analysis
+    \item Natural language models and their applicability to source code
     \end{enumerate}
-\item Input Representation
+\item Model Implementation and Evaluation
     \begin{enumerate}
-    \item Bag-of-Words
-    \item Character Sequence
-    \item Token Sequence
-    \item Abstract Syntax Tree
-    \end{enumerate}
-\item Data Sets
-\item Model Selection
-\item Evaluation
-    \begin{enumerate}
-    \item Accuracy
-    \item Generalisation
-    \item Interpretation of Results
+    \item Data set curation
+    \item Input representation
+    \item Description of implemented models
+    \item Model evaluation and comparison to existing techniques
+    \item Reflection on applicability
     \end{enumerate}
 \item Conclusion and Future Work
 \end{enumerate}
