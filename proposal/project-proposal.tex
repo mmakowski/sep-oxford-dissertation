@@ -13,45 +13,129 @@
 \maketitle
 
 \begin{abstract}
-TODO
+We propose to investigate techniques for prediction of vulnerabilities in
+software components that are based on neural network models that analyse
+source code. In particular, deep learnig techniques inspired by those used
+for natural language modelling and classification are going to be explored.
+The challenges we will need to overcome include training data curation,
+choice of representation and choice of the neural network architecture.
+The contribution of the work would consist of a novel vulnerability model
+as well as insight into source code features that correlate with security
+vulnerabilities.
 \end{abstract}
 
 \section{Area of Study}
 
-* software vulnerabilities are widespread and affect millions of people, massive cost for economy (WannaCry etc.)
-* ways to address: code reviews, pen testing (require human intervention), formal methods, fuzzing\cite{neville2016towards}
-* metadata mining\cite{shin2011evaluating}
-* machine learning promises to replace humans\cite{scandariato2014predicting}
-* language modelling techniques could be used\cite{karpathy2015unreasonable}
-* representation learning: eliminates feature engineering, but requires lots of training data;
-to what extent can it be applied?
-* threats to validity: where to find negative examples?
+The social, political and financial impact of software security vulnerabilities, 
+exemplified by recent \emph{WannaCry} malware infection that affected
+United Kingdom National Health Service, calls 
+for tools and techniques that aid in early discovery of such vulnerabilities. 
+The spectrum of existing approaches includes techniques based on human assessment,
+such as code reviews and penetration testing, as well as automated tools that perform
+either dynamic or static code analysis. The focus of our work will be on the last 
+group of techniques, and specifically on the application of machine learning in the
+domain. While existing pattern-matching tools are effective in discovering known
+vulnerability patterns in new software, the generalisation properties of machine 
+learning algorithms give hope that new types of vulnerabilities can be predicted
+based on source code features learned from existing examples. 
+
+Prior work in the area involved machine learning models such as support vector
+machines (SVMs) \cite{neuhaus2007predicting,perl2015vccfinder}, naïve Bayes and 
+random forest
+\cite{scandariato2014predicting}, which require the input features to be hand-picked.
+Recent advances in \emph{representation learning}, in particular using deep
+neural networks (\emph{deep learnig}), might allow training vulnerability models 
+without the oversight of a software security expert. Exploratory work by Andrej 
+Karpathy \cite{karpathy2015unreasonable} suggests that recurrent neural networks 
+(RNNs) have the capacity to learn syntactic properties of source code.
+This result holds promise for extending such models to classify security properties
+of the code. Neural networks have been applied to security analysis of software 
+design \cite{adebiyi2013security}, but, to the best of our knowledge, not to
+source code directly. This would be a new contribution of this project.
+
+The relative novelty of the deep learning models and scarcity of labelled
+examples are likely to pose a difficulty in achieving state-of-the-art accuracy of
+the predictions. Nonetheless, the work will explore the limitations of
+neural model applicability and the problem space where such models offer advantages
+over alternative code analysis approaches.
 
 \section{Proposed Work}
 
 \subsection{Scope}
 
-* data sets + augmentation
-* choice of input representation
+\paragraph{Data sets} Data sets curated for prior research (\cite{li2016vulpecker}, 
+\cite{perl2015vccfinder}, \cite{meneely2013patch})
+will be reviewed. If required, a comprehensive data set will be constructed
+such set based on public databases of vulnerabilities in open-source software. 
+
+\paragraph{Input representation} A range of possible representations of the source
+code that is taken as the input to the model is feasible: from sequences of 
+characters to abstract syntax trees. We will address the trade-offs between different
+representations.
+
 * choice of the model (RNN/attention) -- focus on both quality and interpretability
 * implementation of the model
-* interpretability
+* interpretation of results
 
 \subsection{Techniques}
 
-* unsupervised learning to improve accuracy (too little training data for the model to
-  work without that); Karpathy used ca. 500MB of C code
-* interpretability: visualisation of the relevant features
+\paragraph{Data set augmentation} Since it is expected that labelled examples will 
+be scarce, we will investigate techniques for data set augmentation, including 
+vulnerability-invariant source code transformations. 
 
-\subsection{Outcomes}
+\paragraph{Pre-training} In the likely event that insufficient labelled training data is
+present, we will apply unsupervised pre-training techniques to improve the model accuracy.
+
+\paragraph{Recurrent neural network}
+
+* interpretability: attention visualisation of the relevant features
+
+\subsection{Expected Outcomes}
 
 * quality: probably not state of the art
-* source code features that are predictors of 
+* insight into source code features that are correlated with sec vulnerabilities
+
+\subsection{Risks}
+
+While representation learning eliminates feature engineering and the associated
+involvement of a domain expert or machine learning specialist, the existing 
+representation learning techniques
+require large volume of training data. As a reference, \cite{karpathy2015unreasonable} 
+model was 
+trained on aproximately 500 megabytes of C code. Obtaining this amount of labelled 
+training data will most likely be infeasible, thus ruling out the most straightforward
+model trainig scheme. Use of more advanced approaches, for example ones that involve
+pre-training on unlabelled source code, poses a risk to the project, as those techniques
+are still in the area of active research and are not very well understood. In addition
+the validity of the results is threatened by lack of definitive negative examples --
+lack of vulnerability report against a piece of code does not guarantee that it is
+vulnerability-free.
 
 \section{Project Plan}
 
-* data collection
-* model implementation and experiments
+The major milestones of the project and estimated effort involved are described below.
+
+\paragraph{Literature review} A survey of prior work in the field that would contribute
+to the content of \emph{Review of Prior Work} section. In addition, the review will 
+provide information on existing data sets, on evaluation approaches and on reference 
+results for comparison with our model. It is expected to take 5 weeks.
+
+\paragraph{Data curation} As a result of the literature review, existing data sets
+to use for training and evaluation can be identified. In this phase we will obtain
+those data sets, and, should they prove insufficient, curate a new one that will be
+used for training the model. Approximate duration of this phase will be 8 weeks.
+
+\paragraph{Model implementation and training} The neural network model will be 
+designed, implemented and trained. The training and preliminary evaluation phase 
+is expected to be time-consuming, given that the RNN programming language model in 
+\cite{karpathy2015unreasonable} took a number of days
+to train and multiple iterations of training will most likely be required. This phase 
+is expected to take 15 weeks.
+
+
+* experiments
+* dissertation writing
+
 
 \section{Dissertation Structure}
 
@@ -60,18 +144,24 @@ to what extent can it be applied?
 \item Review of Prior Work
 \item Neural Models and Deep Learning
     \begin{enumerate}
-    \item for natural language
-    \item for programming language
+    \item Natural Language
+    \item Programming Language
     \end{enumerate}
 \item Input Representation
     \begin{enumerate}
-    \item bag-of-tokens
-    \item character sequence
-    \item token sequence
-    \item abstract syntax tree
+    \item Bag-of-Words
+    \item Character Sequence
+    \item Token Sequence
+    \item Abstract Syntax Tree
     \end{enumerate}
+\item Data Sets
 \item Model Selection
 \item Evaluation
+    \begin{enumerate}
+    \item Accuracy
+    \item Generalisation
+    \item Interpretation of Results
+    \end{enumerate}
 \item Conclusion and Future Work
 \end{enumerate}
 
